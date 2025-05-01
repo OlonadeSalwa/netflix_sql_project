@@ -41,7 +41,6 @@ SELECT
 	type,
 	rating
 FROM
-
 (
 SELECT
 	type,
@@ -53,15 +52,15 @@ GROUP BY 1,2
 ) as t1
 WHERE ranking = 1
 
--- 3. List all movies released in a specific year, 2020
+-- 3. List all movies released in a specific year, 2021
 
 SELECT * FROM netflix
 WHERE
 	type = 'Movie'
 	AND
-	release_year = 2020
+	release_year = 2021
 	
--- 4. Find the top 5 countries with the most content on netflix
+-- 4. Find the top 10 countries with the most content on netflix
 
 SELECT
 	UNNEST(STRING_TO_ARRAY(country, ',')) as new_country,
@@ -69,7 +68,7 @@ SELECT
 FROM netflix
 GROUP BY 1
 ORDER BY 2 DESC
-LIMIT 5
+LIMIT 10
 
 --5. Identify the longest movie
 
@@ -116,11 +115,13 @@ SELECT
 	EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY')) as year,
 	COUNT(*) as yealy_content,
 	ROUND(
-	COUNT(*)::numeric/(SELECT COUNT(*) FROM netflix WHERE country = 'India')::numeric * 100
+	COUNT(*)::numeric/(SELECT COUNT(*) FROM netflix WHERE country = 'United States')::numeric * 100
 		,2) as avg_content_per_year
 FROM netflix
-WHERE country = 'India'
+WHERE country = 'United States'
 GROUP BY 1
+ORDER BY 3 DESC
+LIMIT 5
 
 -- 11. list all movies that are documentries
 
@@ -147,7 +148,7 @@ SELECT
 UNNEST(STRING_TO_ARRAY(casts, ',')) as actors,
 COUNT(*) as total_content
 FROM netflix
-WHERE Country ILIKE '%india%'
+WHERE Country ILIKE '%united state%'
 GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10
