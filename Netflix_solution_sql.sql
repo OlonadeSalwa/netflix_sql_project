@@ -108,7 +108,7 @@ SELECT
 FROM netflix
 GROUP BY 1
 
--- 10. Find each year and the average numbers of content release by india on netflix, return top5 years with highest avg content release
+-- 10. Find each year and the average numbers of content release by United State on netflix, return top5 years with highest avg content release
 -- total content 333/972
 
 SELECT
@@ -142,7 +142,7 @@ WHERE
 	AND
 	release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10
 
--- 14. Find the top actors who have appeared in the highest number of movies produced in india
+-- 14. Find the 10 top actors who have appeared in the highest number of movies produced in United States
 
 SELECT
 UNNEST(STRING_TO_ARRAY(casts, ',')) as actors,
